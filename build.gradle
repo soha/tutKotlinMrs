@@ -1,7 +1,7 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.2.50'
-		springBootVersion = '2.0.3.RELEASE'
+		kotlinVersion = '1.2.70'
+		springBootVersion = '2.0.8.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -53,3 +53,4 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
 }
+
