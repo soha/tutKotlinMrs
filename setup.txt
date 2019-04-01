@@ -1,0 +1,40 @@
+やったこと
+・EC2でサーバを立てる。
+・RDSでPostgresを立てる。
+・Spring徹底入門の会議室予約アプリサンプルコードをKotlin化したものをEC2で動かす。インターネットからアクセスできるようにする。
+・上記をCloud9でブラウザ操作のにで実現する。
+
+工夫した点
+・AWSの無料枠で済ませるため、build.gradleに以下を記述しJVMの使用メモリを512MBに抑えた。（これをやらないとメモリ不足エラーで落ちた）
+apply plugin: 'application'
+applicationDefaultJvmArgs = ['-Drun.jvmArguments="-Xmx512m"']
+・JDKの今後のサポートを考え、Oracle版ではなくAWS提供のcorrettoを使った。
+
+
+手順
+まず東京リージョンでEC2サーバを作成する。
+
+Amazon Linux 2 AMI (HVM), SSD Volume Type
+を使う。（Amazon Linux AMI 2018.3ではない シンガポールのCloud9からEC2作るとこっちになってしまうため注意）
+
+以下、Cloud9のターミナル上で操作する。
+
+パッケージアップデート
+sudo yum update
+
+jdkのインストール
+https://docs.aws.amazon.com/ja_jp/corretto/latest/corretto-8-ug/amazon-linux-install.html
+
+sudo amazon-linux-extras enable corretto8
+
+sudo yum install java-1.8.0-amazon-corretto
+
+sudo yum install java-1.8.0-amazon-corretto-devel
+
+
+git clone https://github.com/soha/tutKotlinMrs.git
+cd tutKotlinMrs
+
+application.propertiesのDB接続情報を修正する。
+./gradlew build
+./gradlew bootRun
